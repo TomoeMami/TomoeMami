@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         S1 User Marker-With Export/Import Function
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Mark certain user
 // @ogirin_author       冰箱研会长、masakahaha、Nanachi
 // @author wugui14
@@ -77,12 +77,7 @@ function S1_Reply_Blocker() {
         }
     }
 
-    var Qmenu = getElementByXpath(`//div[@id='nv']`);
 
-    if (Qmenu) {
-        ExportButton_Appender(Qmenu)
-        // ImportButton_Appender(Qmenu)
-    }
 
 }
 
@@ -116,30 +111,29 @@ function ExportButton_Appender(nvDiv) {
 
     function OnImportClick() {
         navigator.clipboard.readText().then((clipText) => {
-            console.log("从粘贴板导入：", clipText)
+            console.log(clipText);
             if (!clipText) {
                 window.confirm("未读取到数据，请先将名单复制至粘贴板")
-            }
-            var importedJson = JSON.parse(clipText)
-            if (!importedJson) {
-                window.confirm('导入格式不正确，按照{"用户名":"标记名",...}格式导入')
-            }
-            for (var item in importedJson) {
-                var localValue = GM_getValue(item, '')
-                if (!localValue || localValue.indexOf(importedJson[item]) === -1) {
-                    var ResultString = ''
-                    if(!localValue){
-                        ResultString += importedJson[item];
-                    }else{
-                    ResultString += "/" + importedJson[item];
-                    }
-                    localValue += ResultString;
-                    GM_setValue(item, localValue);
-                    console.log('导入成功', item, localValue);
-                    window.location.reload();
+            }else{
+                try{
+                    var importedJson = JSON.parse(clipText);
+                    for (var item in importedJson) {
+                    var localValue = GM_getValue(item, '')
+                    if (!localValue || localValue.indexOf(importedJson[item]) === -1) {
+                        var ResultString = ''
+                        if(!localValue){
+                            ResultString += importedJson[item];
+                        }else{
+                            ResultString += "/" + importedJson[item];
+                        }
+                        localValue += ResultString;
+                        GM_setValue(item, localValue);
+                        window.confirm('导入成功');
+                        console.log('导入成功', item, localValue);
+                }}}catch(e) {
+                    window.confirm('导入格式不正确，按照{"用户名":"标记名",...}格式导入');
                 }
-            }
-        })
+            }})
     }
     var importBtn = document.getElementById("importbtn");
     // console.log(button1);
@@ -153,5 +147,13 @@ function ImportButton_Appender(nvDiv) {
     `);
 
 }
+if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/home.php')) {
+    var Qmenu = getElementByXpath(`//div[@id='nv']`);
+    if (Qmenu) {
+        ExportButton_Appender(Qmenu)
+        // ImportButton_Appender(Qmenu)
+    }
+} else if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/thread')) {
+    S1_Reply_Blocker();
+}
 
-S1_Reply_Blocker();
