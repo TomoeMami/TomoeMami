@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         S1 User Marker-With Export/Import Function
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Mark certain user
 // @ogirin_author       冰箱研会长、masakahaha、Nanachi
 // @author wugui14
@@ -120,18 +120,23 @@ function ExportButton_Appender(nvDiv) {
             if (!clipText) {
                 window.confirm("未读取到数据，请先将名单复制至粘贴板")
             }
-
             var importedJson = JSON.parse(clipText)
             if (!importedJson) {
                 window.confirm('导入格式不正确，按照{"用户名":"标记名",...}格式导入')
             }
-
             for (var item in importedJson) {
                 var localValue = GM_getValue(item, '')
                 if (!localValue || localValue.indexOf(importedJson[item]) === -1) {
-                    localValue += ("/" + importedJson[item])
-                    GM_setValue(item, localValue)
-                    console.log('导入成功', item, localValue)
+                    var ResultString = ''
+                    if(!localValue){
+                        ResultString += importedJson[item];
+                    }else{
+                    ResultString += "/" + importedJson[item];
+                    }
+                    localValue += ResultString;
+                    GM_setValue(item, localValue);
+                    console.log('导入成功', item, localValue);
+                    window.location.reload();
                 }
             }
         })
