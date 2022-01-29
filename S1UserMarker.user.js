@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         S1 User Marker
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.7
 // @description  Mark certain user
 // @origin_author       冰箱研会长、masakahaha、wugui14
 // @author Nanachi
@@ -146,13 +146,13 @@ function ImportButton_Appender(nvDiv) {
     `);
  
 }
-if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/home.php')) {
+if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/home.php?mod=spacecp')) {
     var Qmenu = getElementByXpath(`//div[@id='nv']`);
     if (Qmenu) {
         ExportButton_Appender(Qmenu)
         // ImportButton_Appender(Qmenu)
     }
-} else if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/thread')) {
+} else if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/thread')||(window.location.href.startsWith('https://bbs.saraba1st.com/2b/forum.php?mod=viewthread'))) {
     S1_Reply_Blocker();
 }
  
