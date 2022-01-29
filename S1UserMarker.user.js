@@ -1,7 +1,8 @@
+
 // ==UserScript==
 // @name         S1 User Marker
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @description  Mark certain user
 // @origin_author       冰箱研会长、masakahaha、wugui14
 // @author Nanachi
@@ -14,9 +15,9 @@
 // ==/UserScript==
 function getElementByXpath(path) {
     return document.evaluate(path, document, null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                             XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
- 
+
 function Blockbutton_Appender(HtmlDiv, Block_Target, Origin_Name,PostNumber) {
     var Block_status = '';
     var status_text = GM_getValue(Origin_Name,null) ? '取消标记' : '标记此人';
@@ -56,7 +57,7 @@ function Blockbutton_Appender(HtmlDiv, Block_Target, Origin_Name,PostNumber) {
     // 在js页面获取HTML的按钮函数
     button1.onclick = buttonClick;
 }
- 
+
 function S1_Reply_Blocker() {
     var PostLists = getElementByXpath(`//div[@id='postlist']`);
     if (PostLists) {
@@ -65,37 +66,37 @@ function S1_Reply_Blocker() {
             var PostAuthor = getElementByXpath(`//div[@id='postlist']/div[${PostCounter}]/table/tbody/tr[1]/td[1]/div/div[1]/div/a`);
             var MarkPosition = getElementByXpath(`//div[@id='postlist']/div[${PostCounter}]/table/tbody/tr[1]/td[1]/div/p[1]/em/a`);
             if(PostAuthor){
-            if(PostAuthor.innerText){
-            var origin_author = PostAuthor.innerText;
-            }
-            var PostAruthorColumn = getElementByXpath(`//div[@id='postlist']/div[${PostCounter}]/table[1]/tbody[1]/tr[1]/td[1]/div[1]`);
-            if (PostAruthorColumn) {
-                Blockbutton_Appender(PostAruthorColumn, MarkPosition,origin_author,PostCounter);
-            }}
+                if(PostAuthor.innerText){
+                    var origin_author = PostAuthor.innerText;
+                }
+                var PostAruthorColumn = getElementByXpath(`//div[@id='postlist']/div[${PostCounter}]/table[1]/tbody[1]/tr[1]/td[1]/div[1]`);
+                if (PostAruthorColumn) {
+                    Blockbutton_Appender(PostAruthorColumn, MarkPosition,origin_author,PostCounter);
+                }}
             PostCounter = PostCounter + 1;
         }
     }
- 
- 
- 
+
+
+
 }
- 
+
 function ExportButton_Appender(nvDiv) {
     nvDiv.innerHTML= nvDiv.innerHTML.concat(`
     <button type="button" name="blacklistexport_btn" id="exportbtn" value="true" style="float: right; margin: 5px 8px 0;" class="pn vm" ><em>导出标记</em></button>
     <button type="button" name="blacklistimport_btn" id="importbtn" value="true" style="float: right; margin: 5px 8px 0;" class="pn vm" ><em>从粘贴板导入</em></button>
     `);
     function exoprt() {
- 
+
         var names = GM_listValues();
- 
+
         if (names) {
- 
+
             var exoprtJson = {};
             for (var i = 0; i < names.length; i++) {
                 exoprtJson[names[i]] = GM_getValue(names[i], null)
             }
- 
+
             var exoprtValue = JSON.stringify(exoprtJson)
             console.log("导出到粘贴板：", exoprtValue)
             navigator.clipboard.writeText(exoprtValue).then(() => {
@@ -107,7 +108,7 @@ function ExportButton_Appender(nvDiv) {
     // console.log(button1);
     // 在js页面获取HTML的按钮函数
     exportBtn.onclick = exoprt;
- 
+
     function OnImportClick() {
         navigator.clipboard.readText().then((clipText) => {
             console.log(clipText);
@@ -117,19 +118,21 @@ function ExportButton_Appender(nvDiv) {
                 try{
                     var importedJson = JSON.parse(clipText);
                     for (var item in importedJson) {
-                    var localValue = GM_getValue(item, '')
-                    if (!localValue || localValue.indexOf(importedJson[item]) === -1) {
-                        var ResultString = ''
-                        if(!localValue){
-                            ResultString += importedJson[item];
-                        }else{
-                            ResultString += "/" + importedJson[item];
+                        var localValue = GM_getValue(item, '')
+                        if (!localValue || localValue.indexOf(importedJson[item]) === -1) {
+                            var ResultString = ''
+                            if(!localValue){
+                                ResultString += importedJson[item];
+                            }else{
+                                ResultString += "/" + importedJson[item];
+                            }
+                            localValue += ResultString;
+                            GM_setValue(item, localValue);
+                            console.log('导入成功', item, localValue);
                         }
-                        localValue += ResultString;
-                        GM_setValue(item, localValue);
-                        window.confirm('导入成功');
-                        console.log('导入成功', item, localValue);
-                }}}catch(e) {
+                    }
+                    window.confirm('导入成功');
+                }catch(e) {
                     window.confirm('导入格式不正确，按照{"用户名":"标记名",...}格式导入');
                 }
             }})
@@ -139,12 +142,12 @@ function ExportButton_Appender(nvDiv) {
     // 在js页面获取HTML的按钮函数
     importBtn.onclick = OnImportClick;
 }
- 
+
 function ImportButton_Appender(nvDiv) {
     nvDiv.innerHTML= nvDiv.innerHTML.concat(`
     <button type="button" name="blacklistimport_btn" id="importbtn" value="true" style="float: right; margin: 5px 8px 0;" class="pn vm" ><em>从粘贴板导入</em></button>
     `);
- 
+
 }
 if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/home.php?mod=spacecp')) {
     var Qmenu = getElementByXpath(`//div[@id='nv']`);
@@ -155,4 +158,4 @@ if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/home.php?mod=s
 } else if (window.location.href.startsWith('https://bbs.saraba1st.com/2b/thread')||(window.location.href.startsWith('https://bbs.saraba1st.com/2b/forum.php?mod=viewthread'))) {
     S1_Reply_Blocker();
 }
- 
+
