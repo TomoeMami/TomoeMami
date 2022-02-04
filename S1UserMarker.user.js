@@ -2,11 +2,12 @@
 // ==UserScript==
 // @name         S1 User Marker
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.9
 // @description  Mark certain user
 // @origin_author       冰箱研会长、masakahaha、wugui14
 // @author Nanachi
 // @match        https://bbs.saraba1st.com/2b/*
+// @match        https://www.saraba1st.com/2b/*
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant        GM_deleteValue
