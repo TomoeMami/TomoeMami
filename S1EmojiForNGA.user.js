@@ -11,6 +11,7 @@
 // @match        *://nga.178.com/*
 // @match        *://ngabbs.com/*
 // @match        *://ngacn.cc/*
+// @match        *://bbs.nga.cn/*
 // @grant        none
 // @require      https://greasyfork.org/scripts/39014-nga-user-script-loader/code/NGA%20User%20Script%20Loader.js
 // @license      MIT License
