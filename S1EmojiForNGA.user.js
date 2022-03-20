@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         S1麻将脸表情 for NGA
 // @namespace    https://greasyfork.org/zh-CN/users/558480-tomoemami
-// @version      1.0
+// @version      1.1
 // @icon         http://bbs.nga.cn/favicon.ico
 // @description  将S1麻将脸表情加入到表情列表中
 // @author       TomoeMami
