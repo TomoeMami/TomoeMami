@@ -10,8 +10,7 @@
 2. Font：[LXGW Bright Code GB](https://github.com/lxgw/LxgwBright-Code) + [Cascadia Code NF](https://github.com/microsoft/cascadia-code) + 方正聚珍新仿（[FangSong Code](https://github.com/zhimoe/programming-fonts/tree/master/fonts)）
 3. [Personal Blog](https://tomoemami.github.io/)
 
-![image](https://github.com/user-attachments/assets/ccd64fbf-4314-43a8-a9ee-e11f08f1a6fe)
-
+![image](https://github.com/user-attachments/assets/168969a4-db98-4c37-907b-5f4aa3db909d)
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=TomoeMami&show_icons=true&theme=gruvbox)](https://github.com/anuraghazra/github-readme-stats)
 
