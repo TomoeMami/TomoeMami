@@ -6,7 +6,7 @@
 
 ### Tools 工具 🔧
 
-1. Editor：[Emacs](https://www.gnu.org/software/emacs/)
+1. Editor：[Emacs](https://www.gnu.org/software/emacs/) with [Majutsu](https://github.com/0WD0/majutsu)
 2. Font：[LXGW Bright Code GB](https://github.com/lxgw/LxgwBright-Code) + [Cascadia Code NF](https://github.com/microsoft/cascadia-code) + 方正聚珍新仿（[FangSong Code](https://github.com/zhimoe/programming-fonts/tree/master/fonts)）
 3. [Personal Blog](https://tomoemami.github.io/)
 
