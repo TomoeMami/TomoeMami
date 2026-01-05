@@ -11,7 +11,3 @@
 3. [Personal Blog](https://tomoemami.github.io/)
 
 ![image](https://github.com/user-attachments/assets/168969a4-db98-4c37-907b-5f4aa3db909d)
-
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=TomoeMami&show_icons=true&theme=gruvbox)](https://github.com/anuraghazra/github-readme-stats)
-
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=TomoeMami&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
